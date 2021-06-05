@@ -3,6 +3,10 @@ const getRandomInteger = function(min, max) {
   return Math.floor(rand);
 };
 
+getRandomInteger();
+
 const checkingStringlength = function(str, max) {
   return str.length <= max;
 };
+
+checkingStringlength();
