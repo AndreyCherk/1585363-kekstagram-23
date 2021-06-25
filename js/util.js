@@ -7,4 +7,8 @@ const checkingStringlength = function(str, max) {
   return str.length <= max;
 };
 
-export {getRandomInteger, checkingStringlength};
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+export {getRandomInteger, checkingStringlength, isEscEvent};
