@@ -17,3 +17,9 @@ userPhotos.forEach (({url, comments, likes}) => {
 });
 
 picturesContainer.appendChild(photosListFragment);
+
+const clearPhotosList = () => {
+  picturesContainer.innerHTML = '';
+};
+
+export {userPhotos, clearPhotosList};
