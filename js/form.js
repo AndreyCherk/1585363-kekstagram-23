@@ -38,3 +38,4 @@ loadingPicture.addEventListener('click', (evt) => {
 
 loadingPicture.addEventListener('change', onOpenEditingPicture);
 
+export {body};
