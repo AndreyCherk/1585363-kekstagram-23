@@ -41,4 +41,5 @@ const photo = () => ({
 })
 
 const arrayOfPhotos = [...new Array( arrayLength: 25)].map(() => photo());
+
 console.log(arrayOfPhotos);

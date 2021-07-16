@@ -33,4 +33,4 @@ scaleDownControl.addEventListener('click', DownClickControl);
 scaleUpControl.addEventListener('click', upClickControl);
 
 
-export {picturePreview, setScale};
+// export {picturePreview, setScale};
