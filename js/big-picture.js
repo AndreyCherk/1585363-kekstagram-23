@@ -49,7 +49,7 @@ const createElement = (picture) => {
 
 const createComments = (comments) => comments.forEach(createElement);
 
-const FragmentCreateComments = () => {
+const fragmentCreateComments = () => {
   const commentsCountShow = document.querySelectorAll(SocialClassName.COMMENT);
 
   createComments(commentsBigPicture.slice(commentsCountShow, commentsCountShow + NUMBER_OF_COMMENTS));
@@ -75,6 +75,8 @@ const closeBigPicture = () => {
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onPictureEscKeydown);
+  loadMoreCommentButton.classList.remove('hidden');
+  loadMoreCommentButton.removeEventListener('click', fragmentCreateComments);
 };
 
 const openBigPicture = (data) => {
@@ -85,7 +87,7 @@ const openBigPicture = (data) => {
 
   commentsContainer.innerHTML = '';
   commentsBigPicture = data.comments;
-  FragmentCreateComments(data.comments);
+  fragmentCreateComments(data.comments);
 
   bigPictureContainer.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -100,5 +102,7 @@ closeBigPictureButton.addEventListener('click', () => {
 });
 
 loadMoreCommentButton.addEventListener('click', () => {
-  FragmentCreateComments();
+  fragmentCreateComments();
 });
+
+export {openBigPicture, fragmentCreateComments};

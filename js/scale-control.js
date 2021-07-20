@@ -5,7 +5,7 @@ const SCALE_STEP = 25;
 const scaleControlValue = document.querySelector('.scale__control--value');
 const scaleDownControl = document.querySelector('.scale__control--smaller');
 const scaleUpControl = document.querySelector('.scale__control--bigger');
-const picturePreview = document.querySelector('.img-upload__preview');
+const picturePreview = document.querySelector('.img-upload__preview img');
 
 let currentScale = 100;
 
@@ -33,4 +33,4 @@ scaleDownControl.addEventListener('click', DownClickControl);
 scaleUpControl.addEventListener('click', upClickControl);
 
 
-// export {picturePreview, setScale};
+export {picturePreview, setScale};
