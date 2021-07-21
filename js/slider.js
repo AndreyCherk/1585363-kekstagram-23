@@ -1,11 +1,11 @@
+import {picturePreview} from './scale-control.js'
 
+const sliderContainer = document.querySelector('.img-upload__effect-level');
 const noneEffect = document.querySelector('#effect-none');
-const uploadedPreviewPicture = document.querySelector('.img-upload__preview').querySelector('img');
-const sliderWrapper = document.querySelector('.img-upload__effect-level');
-const sliderElement = sliderWrapper.querySelector('.effect-level__slider');
-const effectValue = sliderWrapper.querySelector('.effect-level__value');
+const sliderElement = document.querySelector('.effect-level__slider');
+const effectValue = document.querySelector('.effect-level__value');
 const effectList = document.querySelector('.effects__list');
-const fileUploadInput = document.querySelector('.img-upload__input');
+const uploadInputPicture = document.querySelector('.img-upload__input');
 
 const effectNames = {
   chrome: {
@@ -90,18 +90,18 @@ noUiSlider.create(sliderElement, {
 });
 
 const resetEffects = () => {
-  uploadedPreviewPicture.removeAttribute('class');
-  uploadedPreviewPicture.style.filter = 'none';
+  picturePreview.removeAttribute('class');
+  picturePreview.style.filter = 'none';
   noneEffect.checked = true;
 };
 
 const changeHandlerEffect = (evt) => {
   if (!evt.target.matches('#effect-none')) {
-    sliderWrapper.style.display = 'block';
+    sliderContainer.style.display = 'block';
     for (const effect in effectNames) {
       if (evt.target.matches(`#effect-${effect}`)) {
-        uploadedPreviewPicture.removeAttribute('class');
-        uploadedPreviewPicture.classList.add(`effects__preview--${effect}`);
+        picturePreview.removeAttribute('class');
+        picturePreview.classList.add(`effects__preview--${effect}`);
         break;
       }
     }
@@ -110,12 +110,14 @@ const changeHandlerEffect = (evt) => {
   }
 };
 
-fileUploadInput.addEventListener('change', () => {
-  sliderWrapper.style.display = 'none';
+uploadInputPicture.addEventListener('change', () => {
+  sliderContainer.style.display = 'none';
 });
 
 effectList.addEventListener('change', changeHandlerEffect);
-noneEffect.addEventListener('click', () => sliderWrapper.style = 'display: none');
+noneEffect.addEventListener('click', () => {
+  sliderContainer.style = 'display: none';
+});
 
 const changeSetupFilters = (filter, arr) => {
   for (const element in arr) {
@@ -129,14 +131,17 @@ const changeSetupFilters = (filter, arr) => {
 const getLevelEffects = (arr, value) => {
   for (const element in arr) {
     if (effectList.querySelector(`#effect-${element}`).checked) {
-      uploadedPreviewPicture.style.filter = `${arr[element].filterName}(${value}${arr[element].unit})`;
+      picturePreview.style.filter = `${arr[element].filterName}(${value}${arr[element].unit})`;
       break;
     }
   }
 };
 
 effectList.addEventListener('change', (evt) => changeSetupFilters(evt, effectNames));
-getLevelEffects(effectNames, effectValue.value);
+
 sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
   effectValue.value = unencoded[handle];
+  getLevelEffects(effectNames, effectValue.value);
 });
+
+export{resetEffects};

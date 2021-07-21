@@ -1,6 +1,6 @@
 import {getData} from './api.js';
-import {openBigPicture} from './big-picture.js';
-import {showAlert, getRandomInteger, debounce} from './utils.js';
+import {openBigPictureHandler} from './big-picture.js';
+import {showAlert, getRandomInteger, debounce} from './util.js';
 
 const NUMBER_RANDOM_PICTURES = 10;
 const RENDER_THROTTLE_DELAY = 500;
@@ -22,7 +22,7 @@ const photoRendering = (picture) => {
 
   pictureElement.addEventListener('click', (evt) => {
     evt.preventDefault();
-    openBigPicture(picture);
+    openBigPictureHandler(picture);
   });
 
   return pictureElement;
@@ -32,7 +32,7 @@ const photoRendering = (picture) => {
 const photosRender = (pictures) => {
   const fragmentPicture = document.createDocumentFragment();
   pictures.forEach((picture) => {
-    const elementPicture = renderPicture(picture);
+    const elementPicture = photoRendering(picture);
     fragmentPicture.appendChild(elementPicture);
   });
 
@@ -53,7 +53,7 @@ const generateDiscussionPhoto = (defaultArray) => {
 
 const generateRandomPhoto = (defaultArray) => {
   const newCommentsArray = defaultArray.slice(0);
-  return shuffle(newCommentsArray).slice(0, NUMBER_RANDOM_PICTURES);
+  return getRandomInteger(newCommentsArray).slice(0, NUMBER_RANDOM_PICTURES);
 };
 
 
@@ -84,13 +84,13 @@ getData(
           filterClickButton(filterRandomButton, filterDiscussedButton, filterDefaultButton);
           createPhotos(generateDefaultPhoto(data));
           break;
-        case 'filter-discussed':
-          filterClickButton(filterRandomButton, filterDefaultButton, filterDiscussedButton);
-          createPhotos(generateDiscussionPhoto(data));
-          break;
         case 'filter-random':
           filterClickButton(filterDefaultButton, filterDiscussedButton, filterRandomButton);
           createPhotos(generateRandomPhoto(data));
+          break;
+        case 'filter-discussed':
+          filterClickButton(filterRandomButton, filterDefaultButton, filterDiscussedButton);
+          createPhotos(generateDiscussionPhoto(data));
           break;
       }
     });
@@ -98,5 +98,3 @@ getData(
   () => {
     showAlert('Не удалось загрузить данные с сервера');
   });
-
-export {photosRender};
