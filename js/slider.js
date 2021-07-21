@@ -1,4 +1,4 @@
-import {picturePreview} from './scale-control.js'
+import {picturePreview} from './scale-control.js';
 
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const noneEffect = document.querySelector('#effect-none');
