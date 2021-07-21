@@ -1,15 +1,15 @@
-const getRandomInteger = function(min, max) {
-  const rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-}
-
-const checkingStringlength = function(str, max) {
-  return str.length <= max;
+const getRandomInteger = (pictures) => {
+  for (let i = pictures.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pictures[i], pictures[j]] = [pictures[j], pictures[i]];
+  }
+  return pictures;
 };
 
-const isEscEvent = (evt) => {
-  return evt.key === 'Escape' || evt.key === 'Esc';
+const checkingStringlength = (string, maxLength) => {string.length <= maxLength;
 };
+
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const ALERT_SHOW_TIME = 5000;
 
@@ -43,4 +43,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {checkingStringlength, isEscEvent, showAlert, debounce, getRandomInteger};
+export {isEscEvent, showAlert, debounce, getRandomInteger, checkingStringlength};
