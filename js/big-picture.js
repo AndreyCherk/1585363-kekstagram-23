@@ -16,7 +16,7 @@ const commentsContainer = document.querySelector('.social__comments');
 const commentTemplate = commentsContainer.querySelector('.social__comment');
 const loadMoreCommentButton = document.querySelector('.comments-loader');
 
-let commentsBigPicture = [];
+let bigPictureComments = [];
 
 const createElement = (comments, template) => {
   const commentItem =  document.createDocumentFragment();
@@ -54,12 +54,12 @@ const createComments = (comments) => {
   }
 };
 
-const fragmentCreateComments = () => {
-  const commentsCountShow = commentsBigPicture.slice(commentsContainer.children.length, commentsContainer.children.length + NUMBER_OF_COMMENTS);
+const showCreateCommentsFragment = () => {
+  const commentsCountShow = bigPictureComments.slice(commentsContainer.children.length, commentsContainer.children.length + NUMBER_OF_COMMENTS);
 
   commentsContainer.appendChild(createElement(commentsCountShow, commentTemplate));
 
-  if (commentsBigPicture.length === commentsContainer.children.length) {
+  if (bigPictureComments.length === commentsContainer.children.length) {
     loadMoreCommentButton.classList.add('hidden');
   }
   socialCommentCount.firstChild.textContent = `${commentsContainer.children.length  } из  `;
@@ -80,9 +80,9 @@ const openBigPicture = (data) => {
   descriptionPicture.textContent = data.description;
 
   commentsContainer.innerHTML = '';
-  commentsBigPicture = data.comments;
+  bigPictureComments = data.comments;
   document.addEventListener('keydown', onPictureEscKeydown);
-  loadMoreCommentButton.addEventListener('click', fragmentCreateComments);
+  loadMoreCommentButton.addEventListener('click', showCreateCommentsFragment);
   createComments(data.comments);
 };
 
@@ -92,7 +92,7 @@ function closeBigPicture () {
 
   document.removeEventListener('keydown', onPictureEscKeydown);
   loadMoreCommentButton.classList.remove('hidden');
-  loadMoreCommentButton.removeEventListener('click', fragmentCreateComments);
+  loadMoreCommentButton.removeEventListener('click', showCreateCommentsFragment);
 }
 
 const onPictureKeydown = (evt) => {

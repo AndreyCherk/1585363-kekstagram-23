@@ -144,4 +144,4 @@ sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
   getLevelEffects(effectNames, effectValue.value);
 });
 
-export{resetEffects};
+export {resetEffects};

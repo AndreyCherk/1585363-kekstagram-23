@@ -7,7 +7,11 @@ const hashtagsInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 
 const checkHashtagValidity = (inputElement) => {
-  const hashtags = inputElement.value.replace(/ +/g, ' ').trim().toLowerCase().split(' ');
+
+  const hashtags = inputElement.value.replace(/ +/g, ' ').trim().toLowerCase().split(' ').filter((item) => item);
+  inputElement.setCustomValidity('');
+  hashtagsInput.style = 'outline: black auto 2px';
+
   hashtags.forEach((item) => {
     const regExp = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
     if (hashtags.length > MAX_HASHTAGS) {
@@ -20,9 +24,6 @@ const checkHashtagValidity = (inputElement) => {
       inputElement.setCustomValidity('Максимум 20 символов: одна "#", кириллические и латинские буквы, цифры 0-9');
     } else if (hashtags.indexOf(item) !== hashtags.lastIndexOf(item)) {
       inputElement.setCustomValidity('Хэштэги не должны повторяться (регистр не учитывается)');
-    } else {
-      inputElement.setCustomValidity('');
-      hashtagsInput.style = 'outline: black auto 2px';
     }
   });
   inputElement.reportValidity();

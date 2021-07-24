@@ -56,7 +56,7 @@ uploadCancelPicture.addEventListener('click', () => {
   onCloseEditingPicture();
 });
 
-const onPopupEventHandler = (evt) => {
+const onPopupEventKeydownHandler = (evt) => {
   if (isEscEvent(evt)) {
     document.body.lastChild.remove();
   } else if (evt.target === document.body.lastChild) {
@@ -70,17 +70,16 @@ const onPopupClickHandler = () => {
 };
 
 document.removeEventListener('click', onPopupClickHandler);
-document.removeEventListener('keydown', onPopupEventHandler);
+document.removeEventListener('keydown', onPopupEventKeydownHandler);
 
 
-const onPopupOpenHandler = (template, button) => {
+const onPopupOpenKeydownHandler = (template, button) => {
   onCloseEditingPicture();
   document.body.append(template);
 
   document.removeEventListener('keydown', onEscKeydownEditingPicture);
 
   button.addEventListener('click', onPopupClickHandler);
-  document.addEventListener('keydown', onPopupEventHandler);
   document.addEventListener('click', onPopupClickHandler);
 };
 
@@ -89,8 +88,8 @@ const setUserFormSubmit = () => {
     evt.preventDefault();
 
     sendData(
-      () => onPopupOpenHandler(successPopup, successButton),
-      () => onPopupOpenHandler(errorPopup, errorButton),
+      () => onPopupOpenKeydownHandler(successPopup, successButton),
+      () => onPopupOpenKeydownHandler(errorPopup, errorButton),
       new FormData(evt.target),
     );
   });

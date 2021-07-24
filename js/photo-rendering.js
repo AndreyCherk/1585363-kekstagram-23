@@ -14,7 +14,7 @@ const filterDefaultButton = filtersForm.querySelector('#filter-default');
 const filterRandomButton = filtersForm.querySelector('#filter-random');
 const filterDiscussedButton = filtersForm.querySelector('#filter-discussed');
 
-const photoRendering = (picture) => {
+const renderPhoto = (picture) => {
   const pictureElement = pictureTemplate.cloneNode(true);
   pictureElement.querySelector('.picture__img').src = picture.url;
   pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
@@ -29,10 +29,10 @@ const photoRendering = (picture) => {
 };
 
 
-const photosRender = (pictures) => {
+const renderPhotos = (pictures) => {
   const fragmentPicture = document.createDocumentFragment();
   pictures.forEach((picture) => {
-    const elementPicture = photoRendering(picture);
+    const elementPicture = renderPhoto(picture);
     fragmentPicture.appendChild(elementPicture);
   });
 
@@ -68,7 +68,7 @@ const createPhotos = (debounce(
     picturesContainer.querySelectorAll('.picture').forEach((photo) => {
       photo.remove();
     });
-    photosRender(photosArray, pictureTemplate);
+    renderPhotos(photosArray, pictureTemplate);
   },
   RENDER_THROTTLE_DELAY,
 ));
